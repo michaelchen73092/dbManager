@@ -7,15 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		309CFFA904E86F95F7FB1F23 /* Pods_dbManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B9B092A21885B42772C57 /* Pods_dbManager.framework */; };
 		AC3CA3F21D0F99BF003C553D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA3F11D0F99BF003C553D /* AppDelegate.swift */; };
-		AC3CA3F51D0F99BF003C553D /* dbManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA3F31D0F99BF003C553D /* dbManager.xcdatamodeld */; };
-		AC3CA3F71D0F99BF003C553D /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA3F61D0F99BF003C553D /* MasterViewController.swift */; };
 		AC3CA3F91D0F99BF003C553D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA3F81D0F99BF003C553D /* DetailViewController.swift */; };
 		AC3CA3FC1D0F99BF003C553D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC3CA3FA1D0F99BF003C553D /* Main.storyboard */; };
 		AC3CA3FE1D0F99C0003C553D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC3CA3FD1D0F99BF003C553D /* Assets.xcassets */; };
 		AC3CA4011D0F99C0003C553D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC3CA3FF1D0F99C0003C553D /* LaunchScreen.storyboard */; };
 		AC3CA40C1D0F99C0003C553D /* dbManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA40B1D0F99C0003C553D /* dbManagerTests.swift */; };
 		AC3CA4171D0F99C0003C553D /* dbManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA4161D0F99C0003C553D /* dbManagerUITests.swift */; };
+		AC3CA4621D10A9B0003C553D /* dynamoDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA4611D10A9B0003C553D /* dynamoDBManager.swift */; };
+		AC3CA4641D14C533003C553D /* dbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA4631D14C533003C553D /* dbView.swift */; };
+		AC3CA4691D1CB1B4003C553D /* Doctors.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA4671D1CB1B4003C553D /* Doctors.swift */; };
+		AC3CA46A1D1CB1B4003C553D /* Doctors+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA4681D1CB1B4003C553D /* Doctors+CoreDataProperties.swift */; };
+		AC3CA46E1D1CB211003C553D /* Persons+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA46D1D1CB211003C553D /* Persons+CoreDataProperties.swift */; };
+		AC3CA4701D1CB219003C553D /* Persons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA46F1D1CB219003C553D /* Persons.swift */; };
+		AC3CA47D1D1CDA02003C553D /* dbManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA47A1D1CDA02003C553D /* dbManager.xcdatamodeld */; };
+		AC3CA4801D1CDA6E003C553D /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA47E1D1CDA6E003C553D /* Model.xcdatamodeld */; };
+		AC3CA4871D1CE54A003C553D /* Test1.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA4861D1CE54A003C553D /* Test1.swift */; };
+		AC3CA4891D1CE553003C553D /* Test1+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA4881D1CE553003C553D /* Test1+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,10 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		346B9B092A21885B42772C57 /* Pods_dbManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dbManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		622B5F3E7A8CFA9A9392B78D /* Pods-dbManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dbManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-dbManager/Pods-dbManager.release.xcconfig"; sourceTree = "<group>"; };
 		AC3CA3EE1D0F99BF003C553D /* dbManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dbManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3CA3F11D0F99BF003C553D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AC3CA3F41D0F99BF003C553D /* dbManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = dbManager.xcdatamodel; sourceTree = "<group>"; };
-		AC3CA3F61D0F99BF003C553D /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		AC3CA3F81D0F99BF003C553D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		AC3CA3FB1D0F99BF003C553D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AC3CA3FD1D0F99BF003C553D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +60,19 @@
 		AC3CA4121D0F99C0003C553D /* dbManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dbManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3CA4161D0F99C0003C553D /* dbManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dbManagerUITests.swift; sourceTree = "<group>"; };
 		AC3CA4181D0F99C0003C553D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC3CA4611D10A9B0003C553D /* dynamoDBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dynamoDBManager.swift; sourceTree = "<group>"; };
+		AC3CA4631D14C533003C553D /* dbView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dbView.swift; sourceTree = "<group>"; };
+		AC3CA4671D1CB1B4003C553D /* Doctors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Doctors.swift; sourceTree = "<group>"; };
+		AC3CA4681D1CB1B4003C553D /* Doctors+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Doctors+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AC3CA46D1D1CB211003C553D /* Persons+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Persons+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AC3CA46F1D1CB219003C553D /* Persons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persons.swift; sourceTree = "<group>"; };
+		AC3CA47B1D1CDA02003C553D /* dbManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = dbManager.xcdatamodel; sourceTree = "<group>"; };
+		AC3CA47C1D1CDA02003C553D /* HealthCare.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HealthCare.xcdatamodel; sourceTree = "<group>"; };
+		AC3CA47F1D1CDA6E003C553D /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		AC3CA4811D1CDCCD003C553D /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
+		AC3CA4861D1CE54A003C553D /* Test1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test1.swift; sourceTree = "<group>"; };
+		AC3CA4881D1CE553003C553D /* Test1+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Test1+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B683FC13CE85BFA3BE0B376A /* Pods-dbManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dbManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dbManager/Pods-dbManager.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				309CFFA904E86F95F7FB1F23 /* Pods_dbManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,13 +101,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		25F5A3360ED1DECD96EC0292 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B683FC13CE85BFA3BE0B376A /* Pods-dbManager.debug.xcconfig */,
+				622B5F3E7A8CFA9A9392B78D /* Pods-dbManager.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		AC3CA3E51D0F99BF003C553D = {
 			isa = PBXGroup;
 			children = (
+				AC3CA47A1D1CDA02003C553D /* dbManager.xcdatamodeld */,
 				AC3CA3F01D0F99BF003C553D /* dbManager */,
 				AC3CA40A1D0F99C0003C553D /* dbManagerTests */,
 				AC3CA4151D0F99C0003C553D /* dbManagerUITests */,
 				AC3CA3EF1D0F99BF003C553D /* Products */,
+				25F5A3360ED1DECD96EC0292 /* Pods */,
+				E9D8995B522F3A894E15A08A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,13 +137,20 @@
 			isa = PBXGroup;
 			children = (
 				AC3CA3F11D0F99BF003C553D /* AppDelegate.swift */,
-				AC3CA3F61D0F99BF003C553D /* MasterViewController.swift */,
+				AC3CA46D1D1CB211003C553D /* Persons+CoreDataProperties.swift */,
+				AC3CA4861D1CE54A003C553D /* Test1.swift */,
+				AC3CA4881D1CE553003C553D /* Test1+CoreDataProperties.swift */,
+				AC3CA4671D1CB1B4003C553D /* Doctors.swift */,
+				AC3CA46F1D1CB219003C553D /* Persons.swift */,
+				AC3CA4681D1CB1B4003C553D /* Doctors+CoreDataProperties.swift */,
+				AC3CA4611D10A9B0003C553D /* dynamoDBManager.swift */,
+				AC3CA47E1D1CDA6E003C553D /* Model.xcdatamodeld */,
 				AC3CA3F81D0F99BF003C553D /* DetailViewController.swift */,
+				AC3CA4631D14C533003C553D /* dbView.swift */,
 				AC3CA3FA1D0F99BF003C553D /* Main.storyboard */,
 				AC3CA3FD1D0F99BF003C553D /* Assets.xcassets */,
 				AC3CA3FF1D0F99C0003C553D /* LaunchScreen.storyboard */,
 				AC3CA4021D0F99C0003C553D /* Info.plist */,
-				AC3CA3F31D0F99BF003C553D /* dbManager.xcdatamodeld */,
 			);
 			path = dbManager;
 			sourceTree = "<group>";
@@ -131,6 +173,14 @@
 			path = dbManagerUITests;
 			sourceTree = "<group>";
 		};
+		E9D8995B522F3A894E15A08A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				346B9B092A21885B42772C57 /* Pods_dbManager.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -138,9 +188,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AC3CA41B1D0F99C0003C553D /* Build configuration list for PBXNativeTarget "dbManager" */;
 			buildPhases = (
+				5FE93A0C62517B01A36AADAD /* [CP] Check Pods Manifest.lock */,
 				AC3CA3EA1D0F99BF003C553D /* Sources */,
 				AC3CA3EB1D0F99BF003C553D /* Frameworks */,
 				AC3CA3EC1D0F99BF003C553D /* Resources */,
+				380B549DDDB540F2D0500B8D /* [CP] Embed Pods Frameworks */,
+				42960144FED077FAFC3606CF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -257,15 +310,71 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		380B549DDDB540F2D0500B8D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-dbManager/Pods-dbManager-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		42960144FED077FAFC3606CF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-dbManager/Pods-dbManager-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5FE93A0C62517B01A36AADAD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AC3CA3EA1D0F99BF003C553D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC3CA46E1D1CB211003C553D /* Persons+CoreDataProperties.swift in Sources */,
+				AC3CA46A1D1CB1B4003C553D /* Doctors+CoreDataProperties.swift in Sources */,
 				AC3CA3F21D0F99BF003C553D /* AppDelegate.swift in Sources */,
-				AC3CA3F51D0F99BF003C553D /* dbManager.xcdatamodeld in Sources */,
-				AC3CA3F71D0F99BF003C553D /* MasterViewController.swift in Sources */,
+				AC3CA4871D1CE54A003C553D /* Test1.swift in Sources */,
+				AC3CA4701D1CB219003C553D /* Persons.swift in Sources */,
+				AC3CA4621D10A9B0003C553D /* dynamoDBManager.swift in Sources */,
+				AC3CA4641D14C533003C553D /* dbView.swift in Sources */,
+				AC3CA47D1D1CDA02003C553D /* dbManager.xcdatamodeld in Sources */,
 				AC3CA3F91D0F99BF003C553D /* DetailViewController.swift in Sources */,
+				AC3CA4891D1CE553003C553D /* Test1+CoreDataProperties.swift in Sources */,
+				AC3CA4801D1CDA6E003C553D /* Model.xcdatamodeld in Sources */,
+				AC3CA4691D1CB1B4003C553D /* Doctors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,9 +516,11 @@
 		};
 		AC3CA41C1D0F99C0003C553D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B683FC13CE85BFA3BE0B376A /* Pods-dbManager.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = dbManager/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = healthcare.dbManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -418,9 +529,11 @@
 		};
 		AC3CA41D1D0F99C0003C553D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 622B5F3E7A8CFA9A9392B78D /* Pods-dbManager.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = dbManager/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = healthcare.dbManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -492,6 +605,7 @@
 				AC3CA41D1D0F99C0003C553D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AC3CA41E1D0F99C0003C553D /* Build configuration list for PBXNativeTarget "dbManagerTests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +614,7 @@
 				AC3CA4201D0F99C0003C553D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AC3CA4211D0F99C0003C553D /* Build configuration list for PBXNativeTarget "dbManagerUITests" */ = {
 			isa = XCConfigurationList;
@@ -508,17 +623,31 @@
 				AC3CA4231D0F99C0003C553D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		AC3CA3F31D0F99BF003C553D /* dbManager.xcdatamodeld */ = {
+		AC3CA47A1D1CDA02003C553D /* dbManager.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				AC3CA3F41D0F99BF003C553D /* dbManager.xcdatamodel */,
+				AC3CA47B1D1CDA02003C553D /* dbManager.xcdatamodel */,
+				AC3CA47C1D1CDA02003C553D /* HealthCare.xcdatamodel */,
 			);
-			currentVersion = AC3CA3F41D0F99BF003C553D /* dbManager.xcdatamodel */;
-			path = dbManager.xcdatamodeld;
+			currentVersion = AC3CA47B1D1CDA02003C553D /* dbManager.xcdatamodel */;
+			name = dbManager.xcdatamodeld;
+			path = dbManager/dbManager.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		AC3CA47E1D1CDA6E003C553D /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AC3CA4811D1CDCCD003C553D /* Model 2.xcdatamodel */,
+				AC3CA47F1D1CDA6E003C553D /* Model.xcdatamodel */,
+			);
+			currentVersion = AC3CA47F1D1CDA6E003C553D /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
