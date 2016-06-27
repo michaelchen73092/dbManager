@@ -42,7 +42,7 @@ class dbView: UIViewController{
         print(dict)
         var dictName:[String:String]? = [String:String]()
         var dictValue:[String:AWSDynamoDBAttributeValue]? = [String:AWSDynamoDBAttributeValue]()
-        print(dynamoDBManger.operationBi("name", op: Op.ls, right: test.valueForKey("name")!, type: NSAttributeType.StringAttributeType,dictName:&dictName , dictValue: &dictValue ))
+        print(dynamoDBManger.operationBi("name", op: Op., right: test.valueForKey("name")!, type: NSAttributeType.StringAttributeType,dictName:&dictName , dictValue: &dictValue ))
         print(dynamoDBManger.operationBi("graduate", op: Op.ls, right: test.valueForKey("graduate")!, type: NSAttributeType.StringAttributeType,dictName:&dictName , dictValue: &dictValue ))
         print(dictName)
         print(dictValue)
