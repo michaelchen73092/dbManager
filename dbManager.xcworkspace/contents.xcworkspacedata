@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:dbManager/Test1+CoreDataProperties.swift">
-   </FileRef>
-   <FileRef
-      location = "group:dbManager/Test1.swift">
-   </FileRef>
-   <FileRef
       location = "group:dbManager.xcodeproj">
    </FileRef>
    <FileRef

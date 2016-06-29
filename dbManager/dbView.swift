@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSDynamoDB
+//import PersonsKit
 
 class dbView: UIViewController{
     override func viewDidLoad() {
@@ -16,37 +17,38 @@ class dbView: UIViewController{
         print("*****load successful")
         
         /*let doctor = dynamoDBManger.testWrite()
-        print("\(doctor.valueForKey("email")!)")*/
+         print("\(doctor.valueForKey("email")!)")*/
         //print("\(doctor.valueForKey("graduate")!)")
         let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-        let test = NSEntityDescription.insertNewObjectForEntityForName("Test1", inManagedObjectContext: moc)
+        let test = NSEntityDescription.insertNewObjectForEntityForName("Test2", inManagedObjectContext: moc)
         test.setValue("zero064@gmail.com", forKey: "email")
         test.setValue("NTU", forKey: "graduate")
         test.setValue(20, forKey: "id")
         test.setValue("WeiChi", forKey: "name")
         print("\(test.valueForKey("email")!)")
         print("\(test.valueForKey("graduate")!)")
-        print("\(test.entity.name!)")
+        //assert(false, "test assertion")
+        //print("\(test.entity.name!)")
         //let dict = ["fuck":"1","fuck2":"2"]
         /*let arry = Array(test.entity.attributesByName.keys)
-        print(arry)
-        let input = dynamoDBManger.transTowrite(["Test1":[test]])
-        dynamoDBManger.dynamoDB.batchWriteItem(input)*/
+         print(arry)
+         let input = dynamoDBManger.transTowrite(["Test1":[test]])
+         dynamoDBManger.dynamoDB.batchWriteItem(input)*/
         /*if let t4 = t3 as?  {
-            printf("\(t4)")
-        }*/
+         printf("\(t4)")
+         }*/
         print("Function: \(#function), line: \(#line)")
-        var dict: [String:String]? = [String:String]();
+        /*var dict: [String:String]? = [String:String]();
         var dict2: [Int:String] = [Int:String]();
         dynamoDBManger.testDict(&dict)
         print(dict)
         var dictName:[String:String]? = [String:String]()
         var dictValue:[String:AWSDynamoDBAttributeValue]? = [String:AWSDynamoDBAttributeValue]()
-        print(dynamoDBManger.operationBi("name", op: Op., right: test.valueForKey("name")!, type: NSAttributeType.StringAttributeType,dictName:&dictName , dictValue: &dictValue ))
-        print(dynamoDBManger.operationBi("graduate", op: Op.ls, right: test.valueForKey("graduate")!, type: NSAttributeType.StringAttributeType,dictName:&dictName , dictValue: &dictValue ))
+        print(dynamoDBManger.operationBi("name", op: Op.append, right: test.valueForKey("name")!, type: NSAttributeType.StringAttributeType,dictName:&dictName , dictValue: &dictValue ))
+        print(dynamoDBManger.operationBi("graduate", op: Op.not_exit, right: test.valueForKey("graduate")!, type: NSAttributeType.StringAttributeType,dictName:&dictName , dictValue: &dictValue ))
         print(dictName)
         print(dictValue)
-        
+        print(dynamoDBManger.conCat(" ",strs: "test1","test2","test3","test4",Op.eq.rawValue))*/
     }
     func setupTable() {
         //See if the test table exists.
@@ -65,7 +67,7 @@ class dbView: UIViewController{
                 key[0].attributeType = AWSDynamoDBScalarAttributeType.S
                 key[1].attributeName = "id"
                 key[1].attributeType = AWSDynamoDBScalarAttributeType.N
-
+                
                 return dynamoDBManger.createTable(tableName,key: key,tableType: false,readCap: 50,writeCap: 50).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
                     //Handle erros.
                     if ((task.error) != nil) {
@@ -93,5 +95,5 @@ class dbView: UIViewController{
         })
     }
     
-
+    
 }

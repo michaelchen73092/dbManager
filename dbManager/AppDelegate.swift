@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 import AWSCore
+import testKit
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
@@ -17,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        let test = NSEntityDescription.insertNewObjectForEntityForName("Test2", inManagedObjectContext: self.managedObjectContext) as! testKit.Test2
+        
         return true
     }
 
@@ -65,7 +69,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("Model", withExtension: "momd")!
+        let PersonsBundle = NSBundle(identifier:"healthcare.testKit")
+        let modelURL = PersonsBundle!.URLForResource("PersonsModel", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
 

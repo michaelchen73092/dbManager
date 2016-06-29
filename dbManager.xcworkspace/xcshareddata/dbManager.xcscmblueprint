@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "FA91031ED341AC499BDB158BB37E69CB00AD8DBF",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E317563AD1FC4BC867BD98391316769E4A08D52E" : 0,
+    "FA91031ED341AC499BDB158BB37E69CB00AD8DBF" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "16BC6970-1032-4211-9105-5714AB8F9FB1",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E317563AD1FC4BC867BD98391316769E4A08D52E" : "HealthCare\/",
+    "FA91031ED341AC499BDB158BB37E69CB00AD8DBF" : "dbManager\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "dbManager",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "dbManager.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/michaelchen73092\/HealthCare.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E317563AD1FC4BC867BD98391316769E4A08D52E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/michaelchen73092\/dbManager.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FA91031ED341AC499BDB158BB37E69CB00AD8DBF"
+    }
+  ]
+}
