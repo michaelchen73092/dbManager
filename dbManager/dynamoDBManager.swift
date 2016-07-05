@@ -44,7 +44,7 @@ class dynamoDBManger : NSObject {
         return doctor
     }*/
     //assemble all the required information into a AWSDynamoDBUpdateItemInput object
-    class func update(tabName:String,upExp:String,condExp:String,inout dictName:[String : String],inout dictValue:[String : AWSDynamoDBAttributeValue])->AWSDynamoDBUpdateItemInput{
+    class func updateItem(tabName:String,upExp:String,condExp:String,inout dictName:[String : String],inout dictValue:[String : AWSDynamoDBAttributeValue])->AWSDynamoDBUpdateItemInput{
         let return_obj = AWSDynamoDBUpdateItemInput()
         return_obj.conditionExpression = condExp
         return_obj.tableName = tabName
@@ -54,13 +54,49 @@ class dynamoDBManger : NSObject {
         return return_obj
         
     }
-    class func query(tabName:String,keyExp:String,inout dictName:[String : String],inout dictValue:[String : AWSDynamoDBAttributeValue])->AWSDynamoDBQueryInput {
+    class func timeFromDate(date:NSDate)->(hour:Int32,min:Int32){
+        let index = date.description.startIndex.advancedBy(11) //swift 2.0+
+        let index2 = date.description.startIndex.advancedBy(13)
+        let index3 = date.description.startIndex.advancedBy(14) //swift 2.0+
+        let index4 = date.description.startIndex.advancedBy(16)
+        var range1 = Range<String.Index>(start: index,end: index2)
+        var range2 = Range<String.Index>(start: index3,end: index4)
+        var s3 = Int32(date.description.substringWithRange(range1))
+        var s4 = Int32(date.description.substringWithRange(range2))
+        return (s3!,s4!)
+    }
+    class func testQuery(tabName:String,keyVal:[AnyObject],keyTyp:[NSAttributeType],op:Op)->AWSTask{
+        var dictName:[String : String]? = [String : String]()
+        var dictValue:[String : AWSDynamoDBAttributeValue]? = [String : AWSDynamoDBAttributeValue]()
+        var keys = Constans.hashDict[tabName]
+        var count = 0
+        var exps = [String]()
+        assert(keys != nil)
+        for key in keys!{
+            if(count<1){
+                exps.append(operationBi(key, op: Op.eq, right: keyVal[count], type: keyTyp[count], dictName: &dictName , dictValue: &dictValue ))
+                count++
+            }else{
+                exps.append(operationBi(key, op: op, right: keyVal[count], type: keyTyp[count], dictName: &dictName , dictValue: &dictValue ))
+                count++
+            }
+        }
+        let result_str = conCat(" and ", strs: exps)
+        print("result_str is \(result_str)")
+        return dynamoDB.query(queryItem(tabName, keyExp: result_str, dictName: &dictName, dictValue: &dictValue))
+    }
+    class func queryItem(tabName:String,keyExp:String,inout dictName:[String : String]?,inout dictValue:[String : AWSDynamoDBAttributeValue]?)->AWSDynamoDBQueryInput {
         let return_obj = AWSDynamoDBQueryInput()
-        return_obj.consistentRead = 1
+        //var n1:NSNumber = 1
+        return_obj.consistentRead = true
+        return_obj.tableName = tabName
         return_obj.keyConditionExpression = keyExp
-        return_obj.expressionAttributeNames = dictName
-        return_obj.expressionAttributeValues = dictValue
+        return_obj.expressionAttributeNames = dictName!
+        return_obj.expressionAttributeValues = dictValue!
         return return_obj
+    }
+    class func query(input:AWSDynamoDBQueryInput)->AWSTask{
+        return dynamoDB.query(input)
     }
     class func testDict(inout dict:[String:String]?){
         dict!["1"] = "test1"
@@ -68,6 +104,20 @@ class dynamoDBManger : NSObject {
     }
     //concatenate multiple string with specified delimiter
     class func conCat(delit:String,strs:String... )->String{
+        var count:Int = 0
+        var return_str = ""
+        for str in strs{
+            if(count==0){
+                return_str += str
+            }else{
+                return_str +=   delit+str
+            }
+            count = count+1
+        }
+        return return_str
+    }
+    //the previous function's polymorphism
+    class func conCat(delit:String,strs:[String] )->String{
         var count:Int = 0
         var return_str = ""
         for str in strs{
@@ -120,9 +170,7 @@ class dynamoDBManger : NSObject {
         return return_str
         
     }
-    class func query(){
-        
-    }
+
     class func toAttrValue(attrValue:AWSDynamoDBAttributeValue,type:NSAttributeType,object:AnyObject){
         //tranform object to AWSDynamoDBAttributeValue
         switch(type){
@@ -130,11 +178,19 @@ class dynamoDBManger : NSObject {
         case .DoubleAttributeType: attrValue.N = String(object as! Double)
         case .StringAttributeType: attrValue.S = object as! String
         case .BooleanAttributeType: attrValue.BOOLEAN = object as! Bool ? 1:0
-        case .TransformableAttributeType: attrValue.SS = object as! [String]
+        case .TransformableAttributeType:
+            attrValue.L = [AWSDynamoDBAttributeValue]()
+            let temp_arry = object as! [String]
+            for str in temp_arry{
+                let new_obj = AWSDynamoDBAttributeValue()
+                new_obj.S = str
+                attrValue.L?.append(new_obj)
+            }
         default: print("Function: \(#function), line: \(#line)\ntypeError in batchwrite")
         }
         return
     }
+    //create the AWSDynamoDBBatchWriteItemInput for deleteRequest
     class func transTodelete(objects:[String:[NSManagedObject]])->AWSDynamoDBBatchWriteItemInput{
         let keys = Array(objects.keys)
         let returnObject = AWSDynamoDBBatchWriteItemInput()
@@ -144,26 +200,24 @@ class dynamoDBManger : NSObject {
             let buff = objects[key]
             var writes = [AWSDynamoDBWriteRequest]()
             let key_set:[String]? = Constans.hashDict[key]
-            var hashkey_name:String?
-            var sortkey_name:String?
             assert(key_set != nil,"Function: \(#function), line: \(#line)\n undefined identity:\(key)")
-            hashkey_name = key_set![0]
-            if(key_set!.count==2){
-                sortkey_name = key_set![1]
-            }
             if let buff2 = buff{
                 //each object indicate a NSManagedObject
                 for object in buff2 {
-                    var dict = object.entity.attributesByName
-                    let attNames = Array(dict.keys)
+                    let dict = object.entity.attributesByName
                     let wbuff = AWSDynamoDBWriteRequest()
                     wbuff.deleteRequest = AWSDynamoDBDeleteRequest()
-                    //wbuff.deleteRequest!.key[]
-      
+                    wbuff.deleteRequest!.key = [String:AWSDynamoDBAttributeValue]()
+                    for keyName in key_set!{
+                        let attribValue = AWSDynamoDBAttributeValue()
+                        toAttrValue(attribValue, type: dict[keyName]!.attributeType, object: object.valueForKey(keyName)!)
+                        wbuff.deleteRequest!.key![keyName] = attribValue
+                        
+                    }
                     writes.append(wbuff)
                 }
             }else{
-                print("error! buff is nil")
+                print("Function: \(#function), line: \(#line)\nerror! buff is nil")
             }
             returnObject.requestItems![key] = writes
         }

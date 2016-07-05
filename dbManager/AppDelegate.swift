@@ -10,6 +10,8 @@ import UIKit
 import CoreData
 import AWSCore
 import testKit
+import AWSDynamoDB
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -19,9 +21,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        let test = NSEntityDescription.insertNewObjectForEntityForName("Test2", inManagedObjectContext: self.managedObjectContext) as! testKit.Test2
+        //let test = NSEntityDescription.insertNewObjectForEntityForName("Test2", inManagedObjectContext: self.managedObjectContext)
+        UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(
+            UIApplicationBackgroundFetchIntervalMinimum)
         
         return true
+    }
+    // Support for background fetch
+    func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        print("background fetch begins")
+        var startDate = NSDate()
+        print(startDate.description)
+        dynamoDBManger.testQuery("Test2", keyVal: ["zero064@gmail.com",2],keyTyp: [NSAttributeType.StringAttributeType,NSAttributeType.Integer32AttributeType], op: Op.eq).continueWithBlock{(task: AWSTask!) -> AnyObject! in
+            if task.error != nil {
+                print("Can't fetch data")
+                print("Error: \(task.error)")
+                let tess = task.error!.description
+                print("description:\(tess)")
+            } else {
+                // the object was saved successfully.
+                var object = task.result as! AWSDynamoDBQueryOutput
+                var dict = object.items![0]
+                print("\(dict["queue"])")
+            }
+            print("startDate "+startDate.description)
+            print("endDate "+NSDate().description)
+            print("Finally!!! background fetch ends")
+            return nil
+
+        }
+        completionHandler(.NewData)
+
+       
     }
 
     func applicationWillResignActive(application: UIApplication) {

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8FF64AFBFD5963DDF8BF30EB /* Pods_dbManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B9B092A21885B42772C57 /* Pods_dbManager.framework */; };
+		AC1C38F81D24A7990078E2D6 /* AWSdb.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1C38F71D24A7990078E2D6 /* AWSdb.swift */; };
+		AC1C39081D29D1260078E2D6 /* testKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1C39071D29D1260078E2D6 /* testKit.framework */; };
+		AC1C39091D29D1260078E2D6 /* testKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AC1C39071D29D1260078E2D6 /* testKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AC3CA3F21D0F99BF003C553D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA3F11D0F99BF003C553D /* AppDelegate.swift */; };
 		AC3CA3F91D0F99BF003C553D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA3F81D0F99BF003C553D /* DetailViewController.swift */; };
 		AC3CA3FC1D0F99BF003C553D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC3CA3FA1D0F99BF003C553D /* Main.storyboard */; };
@@ -17,8 +20,6 @@
 		AC3CA4171D0F99C0003C553D /* dbManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA4161D0F99C0003C553D /* dbManagerUITests.swift */; };
 		AC3CA4621D10A9B0003C553D /* dynamoDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA4611D10A9B0003C553D /* dynamoDBManager.swift */; };
 		AC3CA4641D14C533003C553D /* dbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA4631D14C533003C553D /* dbView.swift */; };
-		AC8C03251D23327B00F338BB /* testKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC8C03241D23327B00F338BB /* testKit.framework */; };
-		AC8C03261D23327B00F338BB /* testKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AC8C03241D23327B00F338BB /* testKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AC8C03291D233FC400F338BB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C03281D233FC400F338BB /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,13 +41,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		AC8C03271D23327B00F338BB /* Embed Frameworks */ = {
+		AC1C390A1D29D1260078E2D6 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				AC8C03261D23327B00F338BB /* testKit.framework in Embed Frameworks */,
+				AC1C39091D29D1260078E2D6 /* testKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,6 +57,9 @@
 /* Begin PBXFileReference section */
 		346B9B092A21885B42772C57 /* Pods_dbManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dbManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		622B5F3E7A8CFA9A9392B78D /* Pods-dbManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dbManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-dbManager/Pods-dbManager.release.xcconfig"; sourceTree = "<group>"; };
+		AC1C38F71D24A7990078E2D6 /* AWSdb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSdb.swift; sourceTree = "<group>"; };
+		AC1C39051D29D1150078E2D6 /* testKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = testKit.framework; path = "../Library/Developer/Xcode/DerivedData/testKit-bdmgtdqzfeyqiqajrzxifkdjyuqx/Build/Products/Debug-iphoneos/testKit.framework"; sourceTree = "<group>"; };
+		AC1C39071D29D1260078E2D6 /* testKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = testKit.framework; path = "../Library/Developer/Xcode/DerivedData/testKit-bdmgtdqzfeyqiqajrzxifkdjyuqx/Build/Products/Debug-iphoneos/testKit.framework"; sourceTree = "<group>"; };
 		AC3CA3EE1D0F99BF003C553D /* dbManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dbManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3CA3F11D0F99BF003C553D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC3CA3F81D0F99BF003C553D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -71,8 +75,6 @@
 		AC3CA4181D0F99C0003C553D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC3CA4611D10A9B0003C553D /* dynamoDBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dynamoDBManager.swift; sourceTree = "<group>"; };
 		AC3CA4631D14C533003C553D /* dbView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dbView.swift; sourceTree = "<group>"; };
-		AC8C02FD1D22192100F338BB /* testKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = testKit.framework; path = "../Library/Developer/Xcode/DerivedData/testKit-bdmgtdqzfeyqiqajrzxifkdjyuqx/Build/Products/Debug-iphonesimulator/testKit.framework"; sourceTree = "<group>"; };
-		AC8C03241D23327B00F338BB /* testKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = testKit.framework; path = "../Library/Developer/Xcode/DerivedData/testKit-bdmgtdqzfeyqiqajrzxifkdjyuqx/Build/Products/Debug-iphonesimulator/testKit.framework"; sourceTree = "<group>"; };
 		AC8C03281D233FC400F338BB /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B683FC13CE85BFA3BE0B376A /* Pods-dbManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dbManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dbManager/Pods-dbManager.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,7 +85,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FF64AFBFD5963DDF8BF30EB /* Pods_dbManager.framework in Frameworks */,
-				AC8C03251D23327B00F338BB /* testKit.framework in Frameworks */,
+				AC1C39081D29D1260078E2D6 /* testKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,7 +118,7 @@
 		AC3CA3E51D0F99BF003C553D = {
 			isa = PBXGroup;
 			children = (
-				AC8C03241D23327B00F338BB /* testKit.framework */,
+				AC1C39071D29D1260078E2D6 /* testKit.framework */,
 				AC3CA3F01D0F99BF003C553D /* dbManager */,
 				AC3CA40A1D0F99C0003C553D /* dbManagerTests */,
 				AC3CA4151D0F99C0003C553D /* dbManagerUITests */,
@@ -142,6 +144,7 @@
 				AC3CA3F11D0F99BF003C553D /* AppDelegate.swift */,
 				AC3CA4611D10A9B0003C553D /* dynamoDBManager.swift */,
 				AC8C03281D233FC400F338BB /* Constants.swift */,
+				AC1C38F71D24A7990078E2D6 /* AWSdb.swift */,
 				AC3CA3F81D0F99BF003C553D /* DetailViewController.swift */,
 				AC3CA4631D14C533003C553D /* dbView.swift */,
 				AC3CA3FA1D0F99BF003C553D /* Main.storyboard */,
@@ -173,8 +176,8 @@
 		E9D8995B522F3A894E15A08A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC1C39051D29D1150078E2D6 /* testKit.framework */,
 				346B9B092A21885B42772C57 /* Pods_dbManager.framework */,
-				AC8C02FD1D22192100F338BB /* testKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -192,7 +195,7 @@
 				AC3CA3EC1D0F99BF003C553D /* Resources */,
 				380B549DDDB540F2D0500B8D /* [CP] Embed Pods Frameworks */,
 				42960144FED077FAFC3606CF /* [CP] Copy Pods Resources */,
-				AC8C03271D23327B00F338BB /* Embed Frameworks */,
+				AC1C390A1D29D1260078E2D6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -251,6 +254,12 @@
 				TargetAttributes = {
 					AC3CA3ED1D0F99BF003C553D = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = UE4J25Q46H;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					AC3CA4061D0F99C0003C553D = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -365,6 +374,7 @@
 				AC8C03291D233FC400F338BB /* Constants.swift in Sources */,
 				AC3CA3F21D0F99BF003C553D /* AppDelegate.swift in Sources */,
 				AC3CA4621D10A9B0003C553D /* dynamoDBManager.swift in Sources */,
+				AC1C38F81D24A7990078E2D6 /* AWSdb.swift in Sources */,
 				AC3CA4641D14C533003C553D /* dbView.swift in Sources */,
 				AC3CA3F91D0F99BF003C553D /* DetailViewController.swift in Sources */,
 			);
@@ -511,6 +521,8 @@
 			baseConfigurationReference = B683FC13CE85BFA3BE0B376A /* Pods-dbManager.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -532,13 +544,14 @@
 					"\"$PODS_CONFIGURATION_BUILD_DIR/AWSSNS\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/AWSSQS\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/AWSSimpleDB\"",
-					"/Users/guest/Library/Developer/Xcode/DerivedData/testKit-bdmgtdqzfeyqiqajrzxifkdjyuqx/Build/Products/Debug-iphonesimulator/**",
+					"/Users/guest/Library/Developer/Xcode/DerivedData/testKit-bdmgtdqzfeyqiqajrzxifkdjyuqx/Build/Products/Debug-iphoneos/**",
 				);
 				INFOPLIST_FILE = dbManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = healthcare.dbManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -547,6 +560,8 @@
 			baseConfigurationReference = 622B5F3E7A8CFA9A9392B78D /* Pods-dbManager.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -568,13 +583,14 @@
 					"\"$PODS_CONFIGURATION_BUILD_DIR/AWSSNS\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/AWSSQS\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/AWSSimpleDB\"",
-					"/Users/guest/Library/Developer/Xcode/DerivedData/testKit-bdmgtdqzfeyqiqajrzxifkdjyuqx/Build/Products/Debug-iphonesimulator/**",
+					"/Users/guest/Library/Developer/Xcode/DerivedData/testKit-bdmgtdqzfeyqiqajrzxifkdjyuqx/Build/Products/Debug-iphoneos/**",
 				);
 				INFOPLIST_FILE = dbManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = healthcare.dbManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
