@@ -8,5 +8,11 @@
 
 import Foundation
 class Constans{
-    static let hashDict:[String:[String]] = ["Doctors":["firstname","email"],"Persons":["firstname","email"],"Test2":["email","id"]]
+    class func hashDict(key:String)->[String]?{
+        let dict:[String:[String]] = ["Doctors":["firstname","email"],"Persons":["firstname","email"],"Test2":["email","id"]]
+        if(dict.keys.contains(key)){
+            return dict[key]
+        }
+        return ["day","time"]
+    }
 }

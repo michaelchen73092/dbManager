@@ -68,7 +68,7 @@ class dynamoDBManger : NSObject {
     class func testQuery(tabName:String,keyVal:[AnyObject],keyTyp:[NSAttributeType],op:Op)->AWSTask{
         var dictName:[String : String]? = [String : String]()
         var dictValue:[String : AWSDynamoDBAttributeValue]? = [String : AWSDynamoDBAttributeValue]()
-        var keys = Constans.hashDict[tabName]
+        var keys = Constans.hashDict(tabName)
         var count = 0
         var exps = [String]()
         assert(keys != nil)
@@ -199,7 +199,7 @@ class dynamoDBManger : NSObject {
         for key in keys{
             let buff = objects[key]
             var writes = [AWSDynamoDBWriteRequest]()
-            let key_set:[String]? = Constans.hashDict[key]
+            let key_set:[String]? = Constans.hashDict(key)
             assert(key_set != nil,"Function: \(#function), line: \(#line)\n undefined identity:\(key)")
             if let buff2 = buff{
                 //each object indicate a NSManagedObject
@@ -256,6 +256,9 @@ class dynamoDBManger : NSObject {
         }
         return returnObject
     }
+    /*class func batchWriteItem(items:[AWSDynamoDBBatchWriteItemInput])->AWSTask{
+        
+    }*/
     class func describeTable(tableName:String) -> AWSTask {
         // See if the test table exists.
         let describeTableInput = AWSDynamoDBDescribeTableInput()
@@ -331,5 +334,6 @@ class dynamoDBManger : NSObject {
         })
         
     }
+
 }
 

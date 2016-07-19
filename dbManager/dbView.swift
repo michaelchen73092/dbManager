@@ -31,6 +31,7 @@ class dbView: UIViewController{
          print("\(doctor.valueForKey("email")!)")*/
         //print("\(doctor.valueForKey("graduate")!)")
         let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        let tokenString =  (UIApplication.sharedApplication().delegate as! AppDelegate).token
         /*let test = NSEntityDescription.insertNewObjectForEntityForName("Test2", inManagedObjectContext: moc)
         test.setValue(queue_buff, forKey: "queue")
         test.setValue("zero064@gmail.com", forKey: "email")
@@ -40,25 +41,37 @@ class dbView: UIViewController{
         print("\(test.valueForKey("email")!)")
         print("\(test.valueForKey("graduate")!)")
         print("\(test.valueForKey("queue")!)")*/
+
         var queue_buff = ["wei chi","a-yo","chien-lin","julian","hsiao-cho","lee"]
-        for count in 0...59 {
-            let start = count*25+1
-            let end = count*25+25
-            var test_arry = [NSManagedObject]()
-            for id in start...end{
-                let test = NSEntityDescription.insertNewObjectForEntityForName("Test2", inManagedObjectContext: moc)
+        var test_arry = [NSManagedObject]()
+        var  obj_pari = ["zero064gmail.com":test_arry]
+        /*for count in 1...31 {
+            var time:Date = Date()
+            while(time.get(Date.Day) != "02"){
+                let test = NSEntityDescription.insertNewObjectForEntityForName("TimeSlot", inManagedObjectContext: moc)
                 test.setValue(queue_buff, forKey: "queue")
-                test.setValue("zero064@gmail.com", forKey: "email")
-                test.setValue("NTU", forKey: "graduate")
-                test.setValue(id, forKey: "id")
-                test.setValue("WeiChi", forKey: "name")
-                test_arry.append(test)
+                test.setValue(count, forKey: "day")
+                test.setValue(time.get(Date.Hour_and_Min), forKey: "time")
+                test.setValue(10, forKey: "open")
+                test.setValue(6, forKey: "reservation")
+                obj_pari["zero064gmail.com"]!.append(test)
+                time.add(Date.Min, num: 30)
+                //print("array count:",obj_pari["zero064gmail.com"]!.count)
+                if(obj_pari["zero064gmail.com"]!.count==25){
+                    //print("count==25")
+                    //dynamoDBManger.dynamoDB.batchWriteItem(dynamoDBManger.transTowrite(obj_pari)).waitUntilFinished()
+                    obj_pari["zero064gmail.com"] = [NSManagedObject]()
+                }
             }
-            let  obj_pari = ["Test2":test_arry]
+            if(obj_pari["zero064gmail.com"]!.count>0){
+                //print("count>0:",obj_pari["zero064gmail.com"]!.count)
+                //dynamoDBManger.dynamoDB.batchWriteItem(dynamoDBManger.transTowrite(obj_pari)).waitUntilFinished()
+                obj_pari["zero064gmail.com"] = [NSManagedObject]()
+            }
             //dynamoDBManger.dynamoDB.batchWriteItem(dynamoDBManger.transTowrite(obj_pari))
 
 
-        }
+        }*/
         /*print(NSDate().description)
         dynamoDBManger.testQuery("Test2", keyVal: ["zero064@gmail.com",2],keyTyp: [NSAttributeType.StringAttributeType,NSAttributeType.Integer32AttributeType], op: Op.eq).continueWithBlock{(task: AWSTask!) -> AnyObject! in
             if task.error != nil {
@@ -102,6 +115,7 @@ class dbView: UIViewController{
         print(dictName)
         print(dictValue)
         print(dynamoDBManger.conCat(" ",strs: "test1","test2","test3","test4",Op.eq.rawValue))*/
+        //print("token:",tokenString)
     }
     func updateCounter(){
         let t = NSDate()

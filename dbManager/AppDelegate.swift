@@ -21,9 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        //let test = NSEntityDescription.insertNewObjectForEntityForName("Test2", inManagedObjectContext: self.managedObjectContext)
-        UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(
-            UIApplicationBackgroundFetchIntervalMinimum)
+        registerForPushNotification(application)
+        //UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         
         return true
     }
@@ -78,9 +77,65 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
-
+    // MARK: - Push Notification
+    var token:String?
+    func registerForPushNotification(application: UIApplication){
+        print("Function: \(#function), line: \(#line)")
+        let notificationSettings = UIUserNotificationSettings(forTypes: [.Badge,.Sound,.Alert],categories: nil)
+        application.registerUserNotificationSettings(notificationSettings)
+    }
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        print("Function: \(#function), line: \(#line)")
+        if notificationSettings.types != .None {
+            print("get permission for remoteNotifications")
+            application.registerForRemoteNotifications()
+        }
+    }
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        print("Function: \(#function), line: \(#line)")
+        let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
+        var tokenString = ""
+        for i in 0..<deviceToken.length {
+            tokenString +=  String(format: "%02.2hhx", arguments: [tokenChars[i]])
+        }
+        token = tokenString
+        print("Device Token:",tokenString)
+        
+        
+        //update token
+        let token2 = NSEntityDescription.insertNewObjectForEntityForName("APNs", inManagedObjectContext: managedObjectContext)
+        var token_arry = [NSManagedObject]()
+        token2.setValue("Chien-Lin", forKey: "firstname")
+        token2.setValue("zero064@gmail.com", forKey: "email")
+        token2.setValue("Chen", forKey: "lastname")
+        token2.setValue(token, forKey: "token")
+        token_arry.append(token2)
+        
+        let  obj_pari = ["APNs":token_arry]
+        dynamoDBManger.dynamoDB.batchWriteItem(dynamoDBManger.transTowrite(obj_pari))
+        
+    }
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        print("Function: \(#function), line: \(#line)")
+        print("Failed to register:",error)
+    }
+    func application(application: UIApplication,didReceiveRemoteNotification userInfo: [NSObject : AnyObject],fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void){
+        print("Function: \(#function), line: \(#line)")
+        let aps = userInfo["aps"] as! [String:AnyObject]
+        handleNotification(aps)
+        completionHandler(.NewData)
+        
+        
+    }
+    func handleNotification(aps:[String:AnyObject]){
+        let message = aps["alert"] as! String
+        print(message)
+    }
+    
+    
+    
     // MARK: - Split view
-
+    
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController, ontoPrimaryViewController primaryViewController:UIViewController) -> Bool {
         guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
         guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
@@ -100,7 +155,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let PersonsBundle = NSBundle(identifier:"healthcare.testKit")
+        let PersonsBundle = NSBundle(identifier:"BoBiHealth.testKit")
         let modelURL = PersonsBundle!.URLForResource("PersonsModel", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
