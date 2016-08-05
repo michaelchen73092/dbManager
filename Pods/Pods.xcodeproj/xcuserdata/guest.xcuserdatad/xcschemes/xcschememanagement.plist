@@ -94,6 +94,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-dbManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -132,6 +137,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>9D0F2E5EA1B46A5D72FFD42B0B39DBBC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9E092F6F363F314309EDFD69117FD22B</key>
 		<dict>
 			<key>primary</key>
@@ -152,6 +162,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>B76C633F08FEFAD904BA38A2BCBF50A8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>BAA396C4D689A02A15029B49E076FAF0</key>
 		<dict>
 			<key>primary</key>
@@ -163,11 +178,6 @@
 			<true/>
 		</dict>
 		<key>BD02CE344851D72142B287462B4106C0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C386256648D6F1E5578013C09B2D434F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

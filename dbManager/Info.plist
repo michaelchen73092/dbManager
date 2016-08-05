@@ -4,17 +4,20 @@
 <dict>
 	<key>AWS</key>
 	<dict>
-		<key>CredentialsProvider</key>
+		<key>S3TransferUtility</key>
 		<dict>
-			<key>CognitoIdentity</key>
+			<key>Default</key>
 			<dict>
-				<key>Default</key>
-				<dict>
-					<key>PoolId</key>
-					<string>us-east-1:84ad56ea-0e25-4a70-9b78-7d45235f75d7</string>
-					<key>Region</key>
-					<string>USEast1</string>
-				</dict>
+				<key>Region</key>
+				<string>USEast1</string>
+			</dict>
+		</dict>
+		<key>S3</key>
+		<dict>
+			<key>Default</key>
+			<dict>
+				<key>Region</key>
+				<string>USEast1</string>
 			</dict>
 		</dict>
 		<key>DynamoDB</key>
@@ -26,6 +29,14 @@
 			</dict>
 		</dict>
 		<key>DynamoDBObjectMapper</key>
+		<dict>
+			<key>Default</key>
+			<dict>
+				<key>Region</key>
+				<string>USEast1</string>
+			</dict>
+		</dict>
+		<key>S3TransferManager</key>
 		<dict>
 			<key>Default</key>
 			<dict>
@@ -56,6 +67,8 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>amazonaws.com</key>

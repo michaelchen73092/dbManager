@@ -10,7 +10,6 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
 
 
     var detailItem: AnyObject? {
@@ -20,6 +19,7 @@ class DetailViewController: UIViewController {
         }
     }
 
+    @IBOutlet weak var detailDescriptionLabel: UILabel!
     func configureView() {
         // Update the user interface for the detail item.
         if let detail = self.detailItem {
@@ -29,6 +29,15 @@ class DetailViewController: UIViewController {
         }
     }
 
+    @IBOutlet weak var confirm_code: UITextField!
+    @IBAction func enterConfirm(sender: UIButton) {
+        let user = (UIApplication.sharedApplication().delegate as! AppDelegate).cred_Manager?.pool?.currentUser()
+        
+        
+        if let user_t = user{
+            user_t.confirmSignUp(self.confirm_code.text!)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

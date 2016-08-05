@@ -102,6 +102,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AWSSNS/AWSSNS.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AWSSQS/AWSSQS.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AWSSimpleDB/AWSSimpleDB.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Bolts/Bolts.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AWSAutoScaling/AWSAutoScaling.framework"
@@ -122,4 +123,5 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AWSSNS/AWSSNS.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AWSSQS/AWSSQS.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AWSSimpleDB/AWSSimpleDB.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Bolts/Bolts.framework"
 fi

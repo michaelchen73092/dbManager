@@ -32,6 +32,11 @@ class dbView: UIViewController{
         //print("\(doctor.valueForKey("graduate")!)")
         let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
         let tokenString =  (UIApplication.sharedApplication().delegate as! AppDelegate).token
+        print("year:",Date().get(Date.Year))
+        print("month:",Date().get(Date.Month))
+        //testCreateAppointTable("zero064hotmail.com", moc: moc)
+        //testCreateAppointTable("zero000064gmail.com", moc: moc)
+        //testCreateAppointTable("zero064gmail.com", moc: moc)
         /*let test = NSEntityDescription.insertNewObjectForEntityForName("Test2", inManagedObjectContext: moc)
         test.setValue(queue_buff, forKey: "queue")
         test.setValue("zero064@gmail.com", forKey: "email")
@@ -42,37 +47,7 @@ class dbView: UIViewController{
         print("\(test.valueForKey("graduate")!)")
         print("\(test.valueForKey("queue")!)")*/
 
-        var queue_buff = ["wei chi","a-yo","chien-lin","julian","hsiao-cho","lee"]
-        var test_arry = [NSManagedObject]()
-        var  obj_pari = ["zero064gmail.com":test_arry]
-        /*for count in 1...31 {
-            var time:Date = Date()
-            while(time.get(Date.Day) != "02"){
-                let test = NSEntityDescription.insertNewObjectForEntityForName("TimeSlot", inManagedObjectContext: moc)
-                test.setValue(queue_buff, forKey: "queue")
-                test.setValue(count, forKey: "day")
-                test.setValue(time.get(Date.Hour_and_Min), forKey: "time")
-                test.setValue(10, forKey: "open")
-                test.setValue(6, forKey: "reservation")
-                obj_pari["zero064gmail.com"]!.append(test)
-                time.add(Date.Min, num: 30)
-                //print("array count:",obj_pari["zero064gmail.com"]!.count)
-                if(obj_pari["zero064gmail.com"]!.count==25){
-                    //print("count==25")
-                    //dynamoDBManger.dynamoDB.batchWriteItem(dynamoDBManger.transTowrite(obj_pari)).waitUntilFinished()
-                    obj_pari["zero064gmail.com"] = [NSManagedObject]()
-                }
-            }
-            if(obj_pari["zero064gmail.com"]!.count>0){
-                //print("count>0:",obj_pari["zero064gmail.com"]!.count)
-                //dynamoDBManger.dynamoDB.batchWriteItem(dynamoDBManger.transTowrite(obj_pari)).waitUntilFinished()
-                obj_pari["zero064gmail.com"] = [NSManagedObject]()
-            }
-            //dynamoDBManger.dynamoDB.batchWriteItem(dynamoDBManger.transTowrite(obj_pari))
-
-
-        }*/
-        /*print(NSDate().description)
+                /*print(NSDate().description)
         dynamoDBManger.testQuery("Test2", keyVal: ["zero064@gmail.com",2],keyTyp: [NSAttributeType.StringAttributeType,NSAttributeType.Integer32AttributeType], op: Op.eq).continueWithBlock{(task: AWSTask!) -> AnyObject! in
             if task.error != nil {
                 print("Can't fetch data")
@@ -116,6 +91,58 @@ class dbView: UIViewController{
         print(dictValue)
         print(dynamoDBManger.conCat(" ",strs: "test1","test2","test3","test4",Op.eq.rawValue))*/
         //print("token:",tokenString)
+    }
+    func testCreateAppointTable(tabName:String,moc:NSManagedObjectContext){
+        var queue_buff = ["wei chi","a-yo","chien-lin","julian","hsiao-cho","lee"]
+        var test_arry = [NSManagedObject]()
+        var  obj_pari = [tabName:test_arry]
+        for count in 1...31 {
+         var time:Date = Date()
+         while(time.get(Date.Day) != "02"){
+         let test = NSEntityDescription.insertNewObjectForEntityForName("TimeSlot", inManagedObjectContext: moc)
+         test.setValue(queue_buff, forKey: "queue")
+         test.setValue(time.getNum(Date.Month), forKey: "month")
+         test.setValue(time.getNum(Date.Year), forKey:"year")
+         test.setValue(count, forKey: "day")
+         test.setValue(time.get(Date.Hour_and_Min), forKey: "time")
+         test.setValue(10, forKey: "open")
+         test.setValue(6, forKey: "reservation")
+         obj_pari[tabName]!.append(test)
+         time.add(Date.Min, num: 30)
+         //print("array count:",obj_pari["zero064gmail.com"]!.count)
+         if(obj_pari[tabName]!.count==25){
+         //print("count==25")
+         dynamoDBManger.dynamoDB.batchWriteItem(dynamoDBManger.transTowrite(obj_pari)).waitUntilFinished()
+         obj_pari[tabName] = [NSManagedObject]()
+         }
+         }
+         if(obj_pari[tabName]!.count>0){
+         //print("count>0:",obj_pari["zero064gmail.com"]!.count)
+            var Task:AWSTask = dynamoDBManger.dynamoDB.batchWriteItem(dynamoDBManger.transTowrite(obj_pari))
+            Task.continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject? in
+                if ((task.error) != nil) {
+                    print("Error: \(task.error)")
+                    
+                    let alertController = UIAlertController(title: "Failed to setup a test table.", message: task.error!.description, preferredStyle: UIAlertControllerStyle.Alert)
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (action:UIAlertAction) -> Void in
+                    })
+                    alertController.addAction(okAction)
+                    
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    
+                } else {
+                    //self.dismissViewControllerAnimated(false, completion: nil)
+                    print("succesfully write information")
+                }
+                return nil            })
+            Task.waitUntilFinished()
+         obj_pari[tabName] = [NSManagedObject]()
+         print("obj_part!!")
+         }
+         //dynamoDBManger.dynamoDB.batchWriteItem(dynamoDBManger.transTowrite(obj_pari))
+         
+         
+         }
     }
     func updateCounter(){
         let t = NSDate()

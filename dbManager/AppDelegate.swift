@@ -10,24 +10,72 @@ import UIKit
 import CoreData
 import AWSCore
 import testKit
+import AWSS3
 import AWSDynamoDB
+import AWSCognitoIdentityProvider
 
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
-
+    // MARK: Managers for accessing AWS service
+    var cred_Manager:credentialManager? = nil
+    
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         registerForPushNotification(application)
+        
+        //self.pool!.currentUser()?.signOut()
+        let mainStoryboard: UIStoryboard = UIStoryboard(name:"Main", bundle: nil)
+        self.cred_Manager = credentialManager.init(delegate_window:mainStoryboard.instantiateViewControllerWithIdentifier("loginView") as! loginView)
+        //self.cred_Manager?.signUp("zero064@hotmail.com", password_str: "Ss0101221")
+        //self.cred_Manager?.verifyEmail("zero064@hotmail.com", confirm_code: "653048")
+        self.cred_Manager?.pool?.currentUser()?.signOut()
+        self.cred_Manager?.authentication().continueWithSuccessBlock { (BFTask) -> AnyObject? in
+            print("finally it works")
+            return nil
+        }
+
+
+        //var user = pool.getUser("chienlcuciedu").confirmSignUp("932226")
+        //testPost()
+        //testBolts.testPost()
+        //s3Manager.listObjects()
         //UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         
         return true
     }
+    /*// MARK: Credential
+    var user:AWSCognitoIdentityUser? = nil
+    var user_detail:AWSCognitoIdentityProviderGetUserResponse? = nil
+    var pool:AWSCognitoIdentityUserPool? = nil
+    func startPasswordAuthentication()->AWSCognitoIdentityPasswordAuthentication{
+        print("start Authentication process!!")
+        let mainStoryboard: UIStoryboard = UIStoryboard(name:"Main", bundle: nil)
+        let loginViewC = mainStoryboard.instantiateViewControllerWithIdentifier("loginView") as? loginView
+        /*dispatch_async(dispatch_get_main_queue(), {
+            self.window?.rootViewController = loginViewC
+        })*/
+        var rootView = self.window?.rootViewController as! UISplitViewController
+        print("\(rootView.viewControllers.count) controllers in split view ")
+        if(rootView.viewControllers.count==2){
+            var detailView = rootView.viewControllers[1] as! UINavigationController
+            detailView.pushViewController(loginViewC!, animated: true)
+            
+        }
+        return loginViewC!
+    }*/
+    // MARK: Background fetch
     // Support for background fetch
-    func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+    func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
+        /*
+         Store the completion handler.
+         */
+        AWSS3TransferUtility.interceptApplication(application, handleEventsForBackgroundURLSession: identifier, completionHandler: completionHandler)
+    }
+    /*func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         print("background fetch begins")
         var startDate = NSDate()
         print(startDate.description)
@@ -52,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         completionHandler(.NewData)
 
        
-    }
+    }*/
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -76,6 +124,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+    }
+    // MARK: NSURL
+    func testPost(){
+        var request = NSMutableURLRequest(URL: NSURL(string: "https://192.168.1.2:8443/hello/home")!)
+        var configuration =
+            NSURLSessionConfiguration.defaultSessionConfiguration()
+        var session =  NSURLSession(configuration: configuration, delegate: DelegateCollect.instance, delegateQueue:NSOperationQueue.mainQueue())
+        //var session = NSURLSession.sharedSession()
+        request.HTTPMethod = "Post"
+        var testjson = ["userName":["jackma","chien-lin"],"ID":3]
+        guard let test = TestJson(json: testjson)
+            else{
+                print("wrong transform")
+                return
+        }
+        do{
+            try request.HTTPBody = NSJSONSerialization.dataWithJSONObject(test.toJSON()!, options: NSJSONWritingOptions(rawValue: 0))
+        }catch{
+            print(error)
+        }
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        var task = session.dataTaskWithRequest(request,completionHandler:  { (data, response, error) in
+            if(error == nil){
+                print("Response: \(response)")
+                var strData = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                 print("Body: \(strData)")
+            }else{
+                print("Error: \(error)")
+            }
+            
+        })
+        task.resume()
     }
     // MARK: - Push Notification
     var token:String?
@@ -103,7 +184,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         
         //update token
-        let token2 = NSEntityDescription.insertNewObjectForEntityForName("APNs", inManagedObjectContext: managedObjectContext)
+        /*let token2 = NSEntityDescription.insertNewObjectForEntityForName("APNs", inManagedObjectContext: managedObjectContext)
         var token_arry = [NSManagedObject]()
         token2.setValue("Chien-Lin", forKey: "firstname")
         token2.setValue("zero064@gmail.com", forKey: "email")
@@ -112,7 +193,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         token_arry.append(token2)
         
         let  obj_pari = ["APNs":token_arry]
-        dynamoDBManger.dynamoDB.batchWriteItem(dynamoDBManger.transTowrite(obj_pari))
+        dynamoDBManger.dynamoDB.batchWriteItem(dynamoDBManger.transTowrite(obj_pari))*/
         
     }
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {

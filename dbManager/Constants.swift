@@ -15,4 +15,11 @@ class Constans{
         }
         return ["day","time"]
     }
+    class func igonredDict(key:String)->Set<String>?{
+        var set:[String:Set<String>] = ["Persons":["imageLocal"],"Doctors":["doctorImageDiploma","doctorImageID","doctorImageMedicalLicense","doctorImageSpecialistLicense"]]
+        if(set.keys.contains(key)){
+            return set[key]
+        }
+        return nil
+    }
 }

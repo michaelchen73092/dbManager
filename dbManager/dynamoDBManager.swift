@@ -36,7 +36,7 @@ class dynamoDBManger : NSObject {
     static let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     static let dynamoDB = AWSDynamoDB.defaultDynamoDB()
     static let dynamoDBObjectMapper=AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
-    
+
     /*class func testWrite()->NSManagedObject{
         let doctor = NSEntityDescription.insertNewObjectForEntityForName("Doctors", inManagedObjectContext: self.moc) as! Doctors
         doctor.setValue("zero064@gmail.com", forKey: "email")
@@ -233,6 +233,7 @@ class dynamoDBManger : NSObject {
         for key in keys{
             let buff = objects[key]
             var writes = [AWSDynamoDBWriteRequest]()
+            let ignored_set = Constans.igonredDict(key)
             if let buff2 = buff{
                 //each object indicate a NSManagedObject
                 for object in buff2 {
@@ -244,6 +245,9 @@ class dynamoDBManger : NSObject {
                     //tranform attribute value from NSManagedObject to attribute value in dynamoDB
                     for attName in attNames{
                         let attribValue = AWSDynamoDBAttributeValue()
+                        if(ignored_set != nil && ignored_set!.contains(attName)){
+                            continue
+                        }
                         toAttrValue(attribValue, type: dict[attName]!.attributeType, object: object.valueForKey(attName)!)
                         wbuff.putRequest?.item![attName] = attribValue
                     }

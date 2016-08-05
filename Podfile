@@ -4,6 +4,7 @@ platform :ios, ’9.3’
 use_frameworks!
 
 target ‘dbManager’ do
+    pod ‘Bolts’
     pod 'AWSAutoScaling'
     pod 'AWSCloudWatch'
     pod 'AWSCognito'
