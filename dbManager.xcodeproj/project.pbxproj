@@ -20,6 +20,7 @@
 		AC3CA4641D14C533003C553D /* dbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA4631D14C533003C553D /* dbView.swift */; };
 		AC4AE4DE1D4C55B900779BE9 /* testBolt.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4AE4DD1D4C55B900779BE9 /* testBolt.swift */; };
 		AC4BD0F11D53EF5300A966C7 /* credentialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4BD0F01D53EF5300A966C7 /* credentialManager.swift */; };
+		AC4BD0F71D5544EB00A966C7 /* presentViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4BD0F61D5544EB00A966C7 /* presentViewDelegate.swift */; };
 		AC5DA0B11D4ECD85001FE1E6 /* auyhView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5DA0B01D4ECD85001FE1E6 /* auyhView.swift */; };
 		AC5DA0B31D4EEE2B001FE1E6 /* loginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5DA0B21D4EEE2B001FE1E6 /* loginView.swift */; };
 		AC8C03291D233FC400F338BB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C03281D233FC400F338BB /* Constants.swift */; };
@@ -89,6 +90,7 @@
 		AC3CA4631D14C533003C553D /* dbView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dbView.swift; sourceTree = "<group>"; };
 		AC4AE4DD1D4C55B900779BE9 /* testBolt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testBolt.swift; sourceTree = "<group>"; };
 		AC4BD0F01D53EF5300A966C7 /* credentialManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = credentialManager.swift; sourceTree = "<group>"; };
+		AC4BD0F61D5544EB00A966C7 /* presentViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = presentViewDelegate.swift; sourceTree = "<group>"; };
 		AC5DA0B01D4ECD85001FE1E6 /* auyhView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = auyhView.swift; sourceTree = "<group>"; };
 		AC5DA0B21D4EEE2B001FE1E6 /* loginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loginView.swift; sourceTree = "<group>"; };
 		AC8C03281D233FC400F338BB /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 			children = (
 				ACCD6D581D45A6D9001A9922 /* Sources */,
 				AC3CA3F11D0F99BF003C553D /* AppDelegate.swift */,
+				AC4BD0F61D5544EB00A966C7 /* presentViewDelegate.swift */,
 				AC4BD0F01D53EF5300A966C7 /* credentialManager.swift */,
 				AC4AE4DD1D4C55B900779BE9 /* testBolt.swift */,
 				ACCD6D6A1D46E6CE001A9922 /* DelegateCollect.swift */,
@@ -441,6 +444,7 @@
 				AC3CA4641D14C533003C553D /* dbView.swift in Sources */,
 				ACCD6D691D45A7BB001A9922 /* TestJson.swift in Sources */,
 				AC5DA0B31D4EEE2B001FE1E6 /* loginView.swift in Sources */,
+				AC4BD0F71D5544EB00A966C7 /* presentViewDelegate.swift in Sources */,
 				ACCD6D671D45A6D9001A9922 /* Operators.swift in Sources */,
 				ACCD6D6D1D4AB42E001A9922 /* s3Manager.swift in Sources */,
 				ACCD6D611D45A6D9001A9922 /* Decoder.swift in Sources */,

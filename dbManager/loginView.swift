@@ -27,7 +27,7 @@ class loginView: UIViewController,AWSCognitoIdentityPasswordAuthentication{
         if(error != nil){
             dispatch_async(dispatch_get_main_queue()) {
                 self.dismissViewControllerAnimated(false, completion: {
-                    let alertController = UIAlertController(title: "Wrong user name or password", message: error!.description, preferredStyle: UIAlertControllerStyle.Alert)
+                    let alertController = UIAlertController(title: "Wrong user name or password", message: error!.userInfo["message"] as? String, preferredStyle: UIAlertControllerStyle.Alert)
                     let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (action:UIAlertAction) -> Void in
                     })
                     alertController.addAction(okAction)

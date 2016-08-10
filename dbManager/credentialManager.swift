@@ -12,9 +12,10 @@ import Bolts
 
 class credentialManager:NSObject,AWSCognitoIdentityInteractiveAuthenticationDelegate{
     // MARK:  Initialization
-    init(delegate_window:AWSCognitoIdentityPasswordAuthentication){
+    init(delegate_window:AWSCognitoIdentityPasswordAuthentication,present_view_delegate:presentViewDelegate){
         super.init()
         self.delegate_window = delegate_window
+        self.view_present_delegate = present_view_delegate
         //identity pool and user pool setting for configuration
         let serviceConfiguration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: nil)
         let userPoolConfiguration = AWSCognitoIdentityUserPoolConfiguration(clientId: "2k9gbn2f56pnn0b00tsttcv7fg", clientSecret: "1f276ournmt4c0992br3it2dk4ujbslg26jj6mfsk4uq446hr8b0", poolId: "us-east-1_4aWz4tq2G")
@@ -56,24 +57,10 @@ class credentialManager:NSObject,AWSCognitoIdentityInteractiveAuthenticationDele
     var user_in_wait:AWSCognitoIdentityUser? = nil
     var pool:AWSCognitoIdentityUserPool? = nil
     var delegate_window:AWSCognitoIdentityPasswordAuthentication?
+    var view_present_delegate:presentViewDelegate?
     func startPasswordAuthentication()->AWSCognitoIdentityPasswordAuthentication{
         let loginViewC = self.delegate_window
-        dispatch_async(dispatch_get_main_queue()) {
-            print("start Authentication process!!")
-            //let mainStoryboard: UIStoryboard = UIStoryboard(name:"Main", bundle: nil)
-            //let loginViewC = mainStoryboard.instantiateViewControllerWithIdentifier("loginView") as? loginView
-            /*dispatch_async(dispatch_get_main_queue(), {
-             self.window?.rootViewController = loginViewC
-             })*/
-            var rootView = (UIApplication.sharedApplication().delegate!).window!!.rootViewController as! UISplitViewController
-            print("\(rootView.viewControllers.count) controllers in split view ")
-            if(rootView.viewControllers.count==2){
-                var detailView = rootView.viewControllers[1] as! UINavigationController
-                detailView.pushViewController(loginViewC! as! UIViewController, animated: true)
-                
-            }
-
-        }
+        self.view_present_delegate?.presentView(loginViewC as! UIViewController)
                 return loginViewC!
     }
     //signUp function

@@ -16,7 +16,7 @@ import AWSCognitoIdentityProvider
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate,presentViewDelegate {
 
     var window: UIWindow?
     // MARK: Managers for accessing AWS service
@@ -29,18 +29,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         //self.pool!.currentUser()?.signOut()
         let mainStoryboard: UIStoryboard = UIStoryboard(name:"Main", bundle: nil)
-        self.cred_Manager = credentialManager.init(delegate_window:mainStoryboard.instantiateViewControllerWithIdentifier("loginView") as! loginView)
+        self.cred_Manager = credentialManager.init(delegate_window:mainStoryboard.instantiateViewControllerWithIdentifier("loginView") as! loginView, present_view_delegate: self)
         //self.cred_Manager?.signUp("zero064@hotmail.com", password_str: "Ss0101221")
         //self.cred_Manager?.verifyEmail("zero064@hotmail.com", confirm_code: "653048")
-        self.cred_Manager?.pool?.currentUser()?.signOut()
-        self.cred_Manager?.authentication().continueWithSuccessBlock { (BFTask) -> AnyObject? in
+        //self.cred_Manager?.pool?.currentUser()?.signOut()
+        /*self.cred_Manager?.authentication().continueWithSuccessBlock { (BFTask) -> AnyObject? in
             print("finally it works")
             return nil
-        }
+        }*/
 
 
         //var user = pool.getUser("chienlcuciedu").confirmSignUp("932226")
-        //testPost()
+        testPost()
         //testBolts.testPost()
         //s3Manager.listObjects()
         //UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
@@ -125,9 +125,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
+    // MARK: Self-defined delegate implementation
+    func presentView(view:UIViewController){
+        dispatch_async(dispatch_get_main_queue()) {
+            print("start Authentication process!!")
+            //let mainStoryboard: UIStoryboard = UIStoryboard(name:"Main", bundle: nil)
+            //let loginViewC = mainStoryboard.instantiateViewControllerWithIdentifier("loginView") as? loginView
+            /*dispatch_async(dispatch_get_main_queue(), {
+             self.window?.rootViewController = loginViewC
+             })*/
+            var rootView = self.window!.rootViewController as! UISplitViewController
+            print("\(rootView.viewControllers.count) controllers in split view ")
+            if(rootView.viewControllers.count==2){
+                var detailView = rootView.viewControllers[1] as! UINavigationController
+                detailView.pushViewController(view, animated: true)
+                
+            }
+            
+        }
+    }
+
     // MARK: NSURL
     func testPost(){
-        var request = NSMutableURLRequest(URL: NSURL(string: "https://192.168.1.2:8443/hello/home")!)
+        var request = NSMutableURLRequest(URL: NSURL(string: "https://168.150.122.122:8443/hello/home")!)
         var configuration =
             NSURLSessionConfiguration.defaultSessionConfiguration()
         var session =  NSURLSession(configuration: configuration, delegate: DelegateCollect.instance, delegateQueue:NSOperationQueue.mainQueue())
