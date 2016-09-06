@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8FF64AFBFD5963DDF8BF30EB /* Pods_dbManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B9B092A21885B42772C57 /* Pods_dbManager.framework */; };
 		AC1C38F81D24A7990078E2D6 /* AWSdb.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1C38F71D24A7990078E2D6 /* AWSdb.swift */; };
+		AC2C034B1D7CF3CD005E5730 /* ItemV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C034A1D7CF3CD005E5730 /* ItemV2.swift */; };
 		AC3CA3F21D0F99BF003C553D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA3F11D0F99BF003C553D /* AppDelegate.swift */; };
 		AC3CA3F91D0F99BF003C553D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CA3F81D0F99BF003C553D /* DetailViewController.swift */; };
 		AC3CA3FC1D0F99BF003C553D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC3CA3FA1D0F99BF003C553D /* Main.storyboard */; };
@@ -73,6 +74,7 @@
 		346B9B092A21885B42772C57 /* Pods_dbManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dbManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		622B5F3E7A8CFA9A9392B78D /* Pods-dbManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dbManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-dbManager/Pods-dbManager.release.xcconfig"; sourceTree = "<group>"; };
 		AC1C38F71D24A7990078E2D6 /* AWSdb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSdb.swift; sourceTree = "<group>"; };
+		AC2C034A1D7CF3CD005E5730 /* ItemV2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemV2.swift; sourceTree = "<group>"; };
 		AC3CA3EE1D0F99BF003C553D /* dbManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dbManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC3CA3F11D0F99BF003C553D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC3CA3F81D0F99BF003C553D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				ACCD6D6C1D4AB42E001A9922 /* s3Manager.swift */,
 				AC3CA3F81D0F99BF003C553D /* DetailViewController.swift */,
 				AC3CA4631D14C533003C553D /* dbView.swift */,
+				AC2C034A1D7CF3CD005E5730 /* ItemV2.swift */,
 				ACFC64D21D3C705200705834 /* Date.swift */,
 				ACCD6D681D45A7BB001A9922 /* TestJson.swift */,
 				AC3CA3FA1D0F99BF003C553D /* Main.storyboard */,
@@ -442,6 +445,7 @@
 				AC4AE4DE1D4C55B900779BE9 /* testBolt.swift in Sources */,
 				AC5DA0B11D4ECD85001FE1E6 /* auyhView.swift in Sources */,
 				AC3CA4641D14C533003C553D /* dbView.swift in Sources */,
+				AC2C034B1D7CF3CD005E5730 /* ItemV2.swift in Sources */,
 				ACCD6D691D45A7BB001A9922 /* TestJson.swift in Sources */,
 				AC5DA0B31D4EEE2B001FE1E6 /* loginView.swift in Sources */,
 				AC4BD0F71D5544EB00A966C7 /* presentViewDelegate.swift in Sources */,

@@ -22,6 +22,27 @@ class dbView: UIViewController{
         print("\(test1.hour):\(test1.min)")
         let testObj = NSDate.init(timeIntervalSinceNow: 20)
         print("testobj's time is \(testObj.description)")
+        var set:Set<String> = Set<String>()
+        set.insert("Chien")
+        set.remove("Chien")
+        var set2:AnyObject = set
+        var content:NSData?
+        
+        if var testset = set2 as? Set<Bool>{
+            testset.insert(true)
+            print("downcast to integer set")
+        }else{
+            print("cannot downcast to integer set")
+        }
+        do{
+            try content = NSJSONSerialization.dataWithJSONObject(["attr1":[String]()], options: NSJSONWritingOptions(rawValue: 0))
+        }catch{
+            print(error)
+        }
+        print("JSON text is")
+        var tesstr:String? = String(data: content!, encoding: NSUTF8StringEncoding)
+        print(tesstr!)
+        print(NSString(data: content!, encoding: NSUTF8StringEncoding))
         //let timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("updateCounter"), userInfo: nil, repeats: true)
         //let timer2 = NSTimer.init(fireDate: testObj,interval:1, target: self, selector: Selector("updateCounter"), userInfo: nil, repeats: true)
         //print("firstDate: \(timer2.fireDate.description)")
@@ -37,15 +58,23 @@ class dbView: UIViewController{
         //testCreateAppointTable("zero064hotmail.com", moc: moc)
         //testCreateAppointTable("zero000064gmail.com", moc: moc)
         //testCreateAppointTable("zero064gmail.com", moc: moc)
-        /*let test = NSEntityDescription.insertNewObjectForEntityForName("Test2", inManagedObjectContext: moc)
-        test.setValue(queue_buff, forKey: "queue")
+        let test = NSEntityDescription.insertNewObjectForEntityForName("Test2", inManagedObjectContext: moc)
+        //test.setValue(queue_buff, forKey: "queue")
         test.setValue("zero064@gmail.com", forKey: "email")
         test.setValue("NTU", forKey: "graduate")
         test.setValue(20, forKey: "id")
         test.setValue("WeiChi", forKey: "name")
         print("\(test.valueForKey("email")!)")
         print("\(test.valueForKey("graduate")!)")
-        print("\(test.valueForKey("queue")!)")*/
+        var test_dict: AnyObject
+        test_dict = ["test1":"test1"]
+        if let dict = test_dict as? [String:String] {
+            print("AnyObject can be downcast to")
+            print(dict)
+        }
+        
+        
+        //print("\(test.valueForKey("queue")!)")*/
 
                 /*print(NSDate().description)
         dynamoDBManger.testQuery("Test2", keyVal: ["zero064@gmail.com",2],keyTyp: [NSAttributeType.StringAttributeType,NSAttributeType.Integer32AttributeType], op: Op.eq).continueWithBlock{(task: AWSTask!) -> AnyObject! in
