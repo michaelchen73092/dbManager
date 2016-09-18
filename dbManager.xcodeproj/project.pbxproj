@@ -24,6 +24,7 @@
 		AC4BD0F71D5544EB00A966C7 /* presentViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4BD0F61D5544EB00A966C7 /* presentViewDelegate.swift */; };
 		AC5DA0B11D4ECD85001FE1E6 /* auyhView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5DA0B01D4ECD85001FE1E6 /* auyhView.swift */; };
 		AC5DA0B31D4EEE2B001FE1E6 /* loginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5DA0B21D4EEE2B001FE1E6 /* loginView.swift */; };
+		AC8166061D88ED96000A796A /* sessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8166051D88ED95000A796A /* sessionManager.swift */; };
 		AC8C03291D233FC400F338BB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8C03281D233FC400F338BB /* Constants.swift */; };
 		ACCD6D551D3DD83B001A9922 /* testKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACCD6D541D3DD83B001A9922 /* testKit.framework */; };
 		ACCD6D561D3DD83B001A9922 /* testKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ACCD6D541D3DD83B001A9922 /* testKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -95,6 +96,7 @@
 		AC4BD0F61D5544EB00A966C7 /* presentViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = presentViewDelegate.swift; sourceTree = "<group>"; };
 		AC5DA0B01D4ECD85001FE1E6 /* auyhView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = auyhView.swift; sourceTree = "<group>"; };
 		AC5DA0B21D4EEE2B001FE1E6 /* loginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loginView.swift; sourceTree = "<group>"; };
+		AC8166051D88ED95000A796A /* sessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sessionManager.swift; sourceTree = "<group>"; };
 		AC8C03281D233FC400F338BB /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		ACCD6D541D3DD83B001A9922 /* testKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = testKit.framework; path = "../Library/Developer/Xcode/DerivedData/testKit-bdmgtdqzfeyqiqajrzxifkdjyuqx/Build/Products/Debug-iphoneos/testKit.framework"; sourceTree = "<group>"; };
 		ACCD6D591D45A6D9001A9922 /* Decoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				AC3CA4611D10A9B0003C553D /* dynamoDBManager.swift */,
 				AC8C03281D233FC400F338BB /* Constants.swift */,
 				AC1C38F71D24A7990078E2D6 /* AWSdb.swift */,
+				AC8166051D88ED95000A796A /* sessionManager.swift */,
 				ACCD6D6C1D4AB42E001A9922 /* s3Manager.swift */,
 				AC3CA3F81D0F99BF003C553D /* DetailViewController.swift */,
 				AC3CA4631D14C533003C553D /* dbView.swift */,
@@ -440,6 +443,7 @@
 				ACCD6D631D45A6D9001A9922 /* ExtensionArray.swift in Sources */,
 				AC3CA4621D10A9B0003C553D /* dynamoDBManager.swift in Sources */,
 				ACCD6D651D45A6D9001A9922 /* Gloss.swift in Sources */,
+				AC8166061D88ED96000A796A /* sessionManager.swift in Sources */,
 				AC1C38F81D24A7990078E2D6 /* AWSdb.swift in Sources */,
 				AC4BD0F11D53EF5300A966C7 /* credentialManager.swift in Sources */,
 				AC4AE4DE1D4C55B900779BE9 /* testBolt.swift in Sources */,

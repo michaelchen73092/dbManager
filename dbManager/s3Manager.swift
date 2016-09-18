@@ -28,6 +28,8 @@ class s3Manager:NSObject {
             print("Creating 'download' directory failed. Error: \(error)")
         }
     }
+    //bucket name:
+    //photo: user's photo
     class func download(BucketName: String,downloadRequests: [String])->[NSData?] {
         let transferUtility = AWSS3TransferUtility.defaultS3TransferUtility()
         var Tasks:[BFTask] = [BFTask]()
@@ -36,7 +38,7 @@ class s3Manager:NSObject {
         let expression = AWSS3TransferUtilityDownloadExpression()
         var completionHandler: AWSS3TransferUtilityDownloadCompletionHandlerBlock?
         print("start time:",NSDate().description)
-        for i in 0..<3{
+        for i in 0..<downloadRequests.count{
             //print("i is \(i)")
             var request = downloadRequests[i]
             let taskCompletionSource = BFTaskCompletionSource()
@@ -69,12 +71,27 @@ class s3Manager:NSObject {
         var Task_t = BFTask.init(forCompletionOfAllTasks: Tasks)
         Task_t.waitUntilFinished()
         print("end time:",NSDate().description)
-        if(Datas[0] != nil){
+        /*if(Datas[0] != nil){
             print("Datas[0] not nil")
         }else{
             assert(false,"Function: \(#function), line: \(#line)")
-        }
+        }*/
         return self.Datas
+    }
+    //upload image to s3 storage space
+    class func upload(bucketname:String,filename:String,data:NSData,contenType:String)->BFTask{
+        let transferUtility = AWSS3TransferUtility.defaultS3TransferUtility()
+        var taskcompletion = BFTaskCompletionSource()
+        var upload_task = transferUtility.uploadData(data, bucket: bucketname, key: filename, contentType: contenType, expression: nil, completionHander: nil)
+        upload_task.continueWithBlock({(task:AWSTask)->AnyObject? in
+            if(task.error != nil){
+                taskcompletion.setError(task.error!)
+            }else{
+                taskcompletion.setResult(nil)
+            }
+            return nil
+        })
+        return taskcompletion.task
     }
     /*class func toTask(task:AWSTask,)->Task<AWSTask>{
         let transferUtility = AWSS3TransferUtility.defaultS3TransferUtility()
@@ -96,7 +113,7 @@ class s3Manager:NSObject {
         var Requests:[String] = [String]()
         let listObjectsRequest = AWSS3ListObjectsRequest()
         listObjectsRequest.bucket = S3BucketName
-        s3.listObjects(listObjectsRequest).continueWithBlock { (task) -> AnyObject! in
+        s3.listObjects(listObjectsRequest).continueWithBlock { (task) -> AnyObject? in
             if let error = task.error {
                 print("listObjects failed: [\(error)]")
             }

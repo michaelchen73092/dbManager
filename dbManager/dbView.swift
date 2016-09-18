@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSDynamoDB
+import Foundation
 //import PersonsKit
 
 class dbView: UIViewController{
@@ -15,8 +16,16 @@ class dbView: UIViewController{
         super.viewDidLoad()
         //self.setupTable()
         //self.listTable()
+        var secondsFromGMT: Int { return NSTimeZone.localTimeZone().secondsFromGMT }
+        var timezone_name: String { return NSTimeZone.localTimeZone().abbreviation!
+            
+        }
+        print("time offset is \(secondsFromGMT)")
+        print("timezoe is \(timezone_name)")
         print("*****load successful")
         let tt1 = NSDate()
+        let time_interval = Int(tt1.timeIntervalSince1970)
+        print("since 1970:\(time_interval)")
         print(tt1.description)
         let test1 = dynamoDBManger.timeFromDate(tt1)
         print("\(test1.hour):\(test1.min)")
@@ -44,10 +53,16 @@ class dbView: UIViewController{
         print(tesstr!)
         print(NSString(data: content!, encoding: NSUTF8StringEncoding))
         //let timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("updateCounter"), userInfo: nil, repeats: true)
-        //let timer2 = NSTimer.init(fireDate: testObj,interval:1, target: self, selector: Selector("updateCounter"), userInfo: nil, repeats: true)
+        let timer2 = NSTimer.init(timeInterval:1, target: self, selector: Selector("updateCounter"), userInfo: nil, repeats: true)
         //print("firstDate: \(timer2.fireDate.description)")
-        //NSRunLoop.currentRunLoop().addTimer(timer2, forMode: NSRunLoopCommonModes)        //timer.s(fireDate: testObj,interval: 15.0,target: self,selector: Selector("updateCounter"),userInfo: nil,repeats: true)
-
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            var loop = NSRunLoop.currentRunLoop()
+            loop.addTimer(timer2, forMode: NSRunLoopCommonModes)
+            loop.run()
+        })
+        //timer.s(fireDate: testObj,interval: 15.0,target: self,selector: Selector("updateCounter"),userInfo: nil,repeats: true)
+        sleep(10)
+        timer2.invalidate()
         /*let doctor = dynamoDBManger.testWrite()
          print("\(doctor.valueForKey("email")!)")*/
         //print("\(doctor.valueForKey("graduate")!)")
@@ -175,7 +190,7 @@ class dbView: UIViewController{
     }
     func updateCounter(){
         let t = NSDate()
-        print("\(t.description)")
+        print("timer: \(t.description)")
     }
     func deleteTable(){
         let tabInput = AWSDynamoDBListTablesInput()

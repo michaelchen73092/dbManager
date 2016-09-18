@@ -4,7 +4,7 @@
 //
 //  Created by guest on 6/13/16.
 //  Copyright © 2016 guest. All rights reserved.
-//
+// in NSError userInfo's message,
 
 import UIKit
 import CoreData
@@ -13,6 +13,7 @@ import testKit
 import AWSS3
 import AWSDynamoDB
 import AWSCognitoIdentityProvider
+import Bolts
 
 
 @UIApplicationMain
@@ -30,13 +31,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         //self.pool!.currentUser()?.signOut()
         let mainStoryboard: UIStoryboard = UIStoryboard(name:"Main", bundle: nil)
         self.cred_Manager = credentialManager.init(delegate_window:mainStoryboard.instantiateViewControllerWithIdentifier("loginView") as! loginView, present_view_delegate: self)
-        //self.cred_Manager?.signUp("zero064@hotmail.com", password_str: "Ss0101221")
+        var test_task = self.cred_Manager?.signUp("zero064@hotmail.com", password_str: "Ss0101221")
+        test_task?.continueWithBlock({(task:BFTask!)->AnyObject! in
+            if(task.error != nil){
+                var dict = task.error!.userInfo
+                print("Sign up fails!!!")
+                print("key:message")
+                print("value:\(dict["message"])")
+            }
+            
+            
+            return nil
+        })
         //self.cred_Manager?.verifyEmail("zero064@hotmail.com", confirm_code: "653048")
         //self.cred_Manager?.pool?.currentUser()?.signOut()
-        /*self.cred_Manager?.authentication().continueWithSuccessBlock { (BFTask) -> AnyObject? in
+        self.cred_Manager?.authentication().continueWithSuccessBlock { (BFTask) -> AnyObject? in
             print("finally it works")
             return nil
-        }*/
+        }
 
 
         //var user = pool.getUser("chienlcuciedu").confirmSignUp("932226")

@@ -9,6 +9,7 @@
 import Foundation
 import AWSDynamoDB
 import CoreData
+import Bolts
 
 
 let AWSSampleDynamoDBTableName = "DynamoDB-OM-SwiftSample"
@@ -43,16 +44,31 @@ class dynamoDBManger : NSObject {
         //doctor.setValue("NTU", forKey: "graduate")
         return doctor
     }*/
+
     //assemble all the required information into a AWSDynamoDBUpdateItemInput object
-    class func updateItem(tabName:String,upExp:String,condExp:String,inout dictName:[String : String],inout dictValue:[String : AWSDynamoDBAttributeValue])->AWSDynamoDBUpdateItemInput{
+    class func updateItem(tabName:String,key:[String:AWSDynamoDBAttributeValue],upExp:String,condExp:String,inout dictName:[String : String],inout dictValue:[String : AWSDynamoDBAttributeValue])->AWSDynamoDBUpdateItemInput{
         let return_obj = AWSDynamoDBUpdateItemInput()
         return_obj.conditionExpression = condExp
         return_obj.tableName = tabName
+        return_obj.key = key
         return_obj.updateExpression = upExp
         return_obj.expressionAttributeNames = dictName
         return_obj.expressionAttributeValues = dictValue
         return return_obj
         
+    }
+    //updateItem
+    class func Update(request:AWSDynamoDBUpdateItemInput)->BFTask{
+        var taskcompletion = BFTaskCompletionSource()
+        dynamoDB.updateItem(request).continueWithBlock({(task:AWSTask)->AnyObject? in
+            if(task.error != nil){
+                taskcompletion.setError(task.error!)
+            }else{
+                taskcompletion.setResult(task.result)
+            }
+            return nil
+        })
+        return taskcompletion.task
     }
     class func timeFromDate(date:NSDate)->(hour:Int32,min:Int32){
         let index = date.description.startIndex.advancedBy(11) //swift 2.0+
@@ -65,7 +81,31 @@ class dynamoDBManger : NSObject {
         var s4 = Int32(date.description.substringWithRange(range2))
         return (s3!,s4!)
     }
-    class func testQuery(tabName:String,keyVal:[AnyObject],keyTyp:[NSAttributeType],op:Op)->AWSTask{
+    //Scan the table
+    //BFTask<[ItemV2]>
+    class func Scan(tabName:String)->BFTask{
+        var request = AWSDynamoDBScanInput()
+        request.tableName = tabName
+        request.consistentRead = NSNumber(bool:true)
+        var scan_task = dynamoDB.scan(request)
+        var taskcompletion = BFTaskCompletionSource()
+        scan_task.continueWithBlock({(task:AWSTask!)->AnyObject? in
+            if(task.error != nil){
+                taskcompletion.setError(task.error!)
+            }else{
+               var output = task.result as! AWSDynamoDBScanOutput
+                var new_arry = [ItemV2]()
+                for item in output.items!{
+                    new_arry.append(ItemV2(dictionary: item))
+                }
+                taskcompletion.setResult(new_arry)
+            }
+            return nil
+        })
+        return taskcompletion.task
+    }
+    //BFTask<[ItemV2]>
+    class func Query(tabName:String,keyVal:[AnyObject],keyTyp:[String],op:Op?)->BFTask{
         var dictName:[String : String]? = [String : String]()
         var dictValue:[String : AWSDynamoDBAttributeValue]? = [String : AWSDynamoDBAttributeValue]()
         var keys = Constans.hashDict(tabName)
@@ -81,10 +121,27 @@ class dynamoDBManger : NSObject {
                 count++
             }
         }
+        var taskcompletion = BFTaskCompletionSource()
         let result_str = conCat(" and ", strs: exps)
         print("result_str is \(result_str)")
-        return dynamoDB.query(queryItem(tabName, keyExp: result_str, dictName: &dictName, dictValue: &dictValue))
+        var query_task = dynamoDB.query(queryItem(tabName, keyExp: result_str, dictName: &dictName, dictValue: &dictValue))
+        query_task.continueWithBlock({(task:AWSTask)->AnyObject? in
+            if(task.error != nil){
+                taskcompletion.setError(task.error!)
+            }else{
+                var arry = task.result as! [[String:AWSDynamoDBAttributeValue]]
+                var new_arry:[ItemV2] = [ItemV2]()
+                for item in arry{
+                    new_arry.append(ItemV2(dictionary:item))
+                }
+                taskcompletion.setResult(new_arry)
+            }
+            
+            return nil
+        })
+        return taskcompletion.task
     }
+    //create a AWSDynamoDBQueryInput from input
     class func queryItem(tabName:String,keyExp:String,inout dictName:[String : String]?,inout dictValue:[String : AWSDynamoDBAttributeValue]?)->AWSDynamoDBQueryInput {
         let return_obj = AWSDynamoDBQueryInput()
         //var n1:NSNumber = 1
@@ -134,22 +191,24 @@ class dynamoDBManger : NSObject {
         return op+" "+exp
     }
     //create string for binary operator, add new map to dictName and dictValue
-    class func operationBi(left:String,op:Op?,right:AnyObject,type:NSAttributeType,inout dictName:[String : String]?,inout dictValue:[String : AWSDynamoDBAttributeValue]?)->String{
+    //example:SET list[0] = :val1 REMOVE #m.nestedField1, #m.nestedField2 ADD aNumber :val2, anotherNumber :val3 DELETE aSet :val4
+    class func operationBi(left:String,op:Op?,right:AnyObject,type:String,inout dictName:[String : String]?,inout dictValue:[String : AWSDynamoDBAttributeValue]?)->String{
         if(dictValue==nil || dictName==nil){
             print("Function: \(#function), line: \(#line)")
             return ""
         }
-        let attrValue = AWSDynamoDBAttributeValue()
-        toAttrValue(attrValue, type: type, object: right)
+        let attrValue = toAttrValue(right)
         let l_name = "#"+left
         var temp_str:String = ":"
         var ind:String = ""
         switch(type){
-        case .Integer32AttributeType: ind = "I"
-        case .DoubleAttributeType: ind = "D"
-        case .StringAttributeType: ind = "S"
-        case .BooleanAttributeType: ind = "B"
-        case .TransformableAttributeType: ind = "T"
+        case "Number": ind = "N"
+        case "String": ind = "S"
+        case "Boolean": ind = "B"
+        case "List": ind = "L"
+        case "StringSet": ind = "Ss"
+        case "NuberSet": ind = "Ns"
+        case "Map": ind = "M"
         default: print("Function: \(#function), line: \(#line)\ntypeError in batchwrite")
         }
         temp_str += ind
@@ -160,35 +219,52 @@ class dynamoDBManger : NSObject {
         dictName![l_name] = left
         var return_str = ""
         if(op==nil){
-            return_str = l_name+" "+temp_str
+            return_str = l_name+" "+temp_str+" "
         }
         else if(op!==Op.append || op!==Op.not_exit){
-            return_str = op!.rawValue+"("+l_name+", "+temp_str+")"
+            return_str = op!.rawValue+"("+l_name+", "+temp_str+") "
         }else{
-            return_str = l_name+" "+op!.rawValue+" "+temp_str
+            return_str = l_name+" "+op!.rawValue+" "+temp_str+" "
         }
         return return_str
         
     }
-
-    class func toAttrValue(attrValue:AWSDynamoDBAttributeValue,type:NSAttributeType,object:AnyObject){
+    //convert the object to AWSDynamoDBAttributeVlaue
+    class func toAttrValue(object:AnyObject)->AWSDynamoDBAttributeValue{
+        var attrValue:AWSDynamoDBAttributeValue = AWSDynamoDBAttributeValue()
         //tranform object to AWSDynamoDBAttributeValue
-        switch(type){
-        case .Integer32AttributeType: attrValue.N = String(object as! Int)
-        case .DoubleAttributeType: attrValue.N = String(object as! Double)
-        case .StringAttributeType: attrValue.S = object as! String
-        case .BooleanAttributeType: attrValue.BOOLEAN = object as! Bool ? 1:0
-        case .TransformableAttributeType:
-            attrValue.L = [AWSDynamoDBAttributeValue]()
-            let temp_arry = object as! [String]
-            for str in temp_arry{
-                let new_obj = AWSDynamoDBAttributeValue()
-                new_obj.S = str
-                attrValue.L?.append(new_obj)
+        var arry:[AnyObject] = [AnyObject]()
+        if let str = object as? String{
+            attrValue.S = str
+        }else if let num = object as? NSNumber{
+            attrValue.N = num.stringValue
+        }else if let flag = object as? Bool{
+            attrValue.BOOLEAN = NSNumber(bool: flag.boolValue)
+        }else if var arry = object as? [AnyObject]{
+            var list:[AWSDynamoDBAttributeValue] = [AWSDynamoDBAttributeValue]()
+            for element in arry{
+                list.append(toAttrValue(element))
             }
-        default: print("Function: \(#function), line: \(#line)\ntypeError in batchwrite")
+        }else if let str_set = object as? Set<String>{
+            attrValue.SS = [String](str_set)
+        }else if let num_set = object as? Set<NSNumber>{
+            var list:[String] = [String]()
+            for element in num_set{
+                list.append(element.stringValue)
+            }
+            attrValue.NS = list
+        }else if var dict = object as? [String:AnyObject]{
+            var new_dict:[String:AWSDynamoDBAttributeValue] = [String:AWSDynamoDBAttributeValue]()
+            for (key,buffer) in dict{
+                new_dict[key] = toAttrValue(buffer)
+            }
+            attrValue.M = new_dict
+        }else if let item = object as? ItemV2{
+            attrValue.M = item.toAttirbuteValue()
+        }else{
+            print("Error!!'")
         }
-        return
+        return attrValue
     }
     //create the AWSDynamoDBBatchWriteItemInput for deleteRequest
     class func transTodelete(objects:[String:[NSManagedObject]])->AWSDynamoDBBatchWriteItemInput{
@@ -209,8 +285,7 @@ class dynamoDBManger : NSObject {
                     wbuff.deleteRequest = AWSDynamoDBDeleteRequest()
                     wbuff.deleteRequest!.key = [String:AWSDynamoDBAttributeValue]()
                     for keyName in key_set!{
-                        let attribValue = AWSDynamoDBAttributeValue()
-                        toAttrValue(attribValue, type: dict[keyName]!.attributeType, object: object.valueForKey(keyName)!)
+                        let attribValue = toAttrValue(object.valueForKey(keyName)!)
                         wbuff.deleteRequest!.key![keyName] = attribValue
                         
                     }
@@ -223,6 +298,24 @@ class dynamoDBManger : NSObject {
         }
         return returnObject
         
+    }
+    //put item
+    //BFTask<void>
+    class func Put(tabName:String,item:ItemV2)->BFTask{
+        var request = AWSDynamoDBPutItemInput()
+        request.tableName = tabName
+        request.item = item.toAttirbuteValue()
+        var taskcompletion = BFTaskCompletionSource()
+        var put_task = dynamoDB.putItem(request)
+        put_task.continueWithBlock({(task:AWSTask!)->AnyObject? in
+            if(task.error != nil){
+                taskcompletion.setError(task.error!)
+            }else{
+                taskcompletion.setResult(nil)
+            }
+            return nil
+            })
+        return taskcompletion.task
     }
     //create AWSDynamoDBBatchWriteItemIput from objects
     class func transTowrite(objects:[String:[NSManagedObject]])->AWSDynamoDBBatchWriteItemInput{
@@ -244,11 +337,10 @@ class dynamoDBManger : NSObject {
                     wbuff.putRequest!.item = [String:AWSDynamoDBAttributeValue]()
                     //tranform attribute value from NSManagedObject to attribute value in dynamoDB
                     for attName in attNames{
-                        let attribValue = AWSDynamoDBAttributeValue()
                         if(ignored_set != nil && ignored_set!.contains(attName)){
                             continue
                         }
-                        toAttrValue(attribValue, type: dict[attName]!.attributeType, object: object.valueForKey(attName)!)
+                        let attribValue = toAttrValue(object.valueForKey(attName)!)
                         wbuff.putRequest?.item![attName] = attribValue
                     }
                     writes.append(wbuff)
